@@ -34,6 +34,13 @@ dependencies {
   annotationProcessor 'org.projectlombok:lombok'
   providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
   testImplementation 'org.springframework.boot:spring-boot-starter-test'
+  // https://mvnrepository.com/artifact/me.ccampo/uuid62-core
+  implementation group: 'me.ccampo', name: 'uuid62-core', version: '0.1.1'
+  // https://mvnrepository.com/artifact/com.fasterxml.uuid/java-uuid-generator
+  implementation group: 'com.fasterxml.uuid', name: 'java-uuid-generator', version: '3.3.0'
+  // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-aop
+  implementation group: 'org.springframework.boot', name: 'spring-boot-starter-aop', version: '2.6.4'
+
 }
 
 tasks.named('test') {
