@@ -1,0 +1,13 @@
+#운영 환경
+
+server:
+  port: 8082
+
+logging:
+  level:
+    root: INFO
+
+#spring:
+#  datasource:
+#    username: sa
+#    password: 1234

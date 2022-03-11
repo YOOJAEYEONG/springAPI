@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.spring.ref.service.mapper.CodeMapper">
+
+    <select id="getCodeList" resultType="CodeVO">
+	    select
+			id
+			, nm
+			, value
+			, parent_id
+			, description
+			, create_date
+			, modify_date
+			, where_used
+		from
+			code
+    </select>
+
+	<insert id="insertCode" parameterType="CodeDTO">
+		insert into code(
+			id
+			, nm
+			, value
+			, parent_id
+			, description
+			, create_date
+			, where_used
+		) values (
+
+			<choose>
+				<when test="@org.springframework.util.ObjectUtils@isEmpty(id)">
+					(select to_char( now() , 'YYYYMMDDHH24MIMS'))
+				</when>
+				<otherwise>
+					#{id}
+				</otherwise>
+			</choose>
+			, #{nm}
+			, #{value}
+			<choose>
+				<when test=" parentId != null and parentId != '' ">
+					#{parentId}
+				</when>
+				<otherwise>
+					, lpad(''::text, 17, '0'::text)
+				</otherwise>
+			</choose>
+			, #{description}
+			, current_timestamp
+			<foreach item="item" index="index" collection="whereUsed"
+				 open=", ARRAY[" separator="," close="]" >
+				 #{item}
+			</foreach>
+		)
+	</insert>
+</mapper>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.service.mapper.UserMapper">
+
+    <select id="getUserList" parameterType="UserSearchDTO" resultType="UserVO">
+	    select
+			user_id
+			, division
+			, user_name
+			, to_char( create_date , 'YYYY-MM-DD') as create_date
+			<!-- , password
+			, enabled
+			, description
+			, modify_date
+			, login_failure_count
+			, last_pass_modify_date
+			, expired_date -->
+		from
+			users
+		<where>
+			<if test="! @org.springframework.util.ObjectUtils@isEmpty(id)">
+				user_id like '%' || #{id} || '%'
+			</if>
+			<if test="! @org.springframework.util.ObjectUtils@isEmpty(name)">
+				and user_name like '%' || #{name} || '%'
+			</if>
+		</where>
+    </select>
+
+    <select id="getUserDetail" parameterType="String" resultType="UserVO">
+    	select
+			user_id
+			, division
+			, user_name
+			, password
+			, enabled
+			, description
+			, to_char( create_date , 'YYYY-MM-DD') as create_date
+			, to_char( modify_date , 'YYYY-MM-DD') as modify_date
+			, login_failure_count
+			, to_char( last_pass_modify_date , 'YYYY-MM-DD') as last_pass_modify_date
+			, to_char( expired_date , 'YYYY-MM-DD') as expired_date
+		from
+			users
+		where
+			user_id = #{id}
+    </select>
+
+	<insert id="insertUser" parameterType="UserCreateDTO">
+		insert into code(
+			id
+			, nm
+			, value
+			, parent_id
+			, description
+			, create_date
+			, where_used
+		) values (
+
+			<choose>
+				<when test="@org.springframework.util.ObjectUtils@isEmpty(id)">
+					(select to_char( now() , 'YYYYMMDDHH24MIMS'))
+				</when>
+				<otherwise>
+					#{id}
+				</otherwise>
+			</choose>
+			, #{nm}
+			, #{value}
+			<choose>
+				<when test=" parentId != null and parentId != '' ">
+					#{parentId}
+				</when>
+				<otherwise>
+					, lpad(''::text, 17, '0'::text)
+				</otherwise>
+			</choose>
+			, #{description}
+			, current_timestamp
+			<foreach item="item" index="index" collection="whereUsed"
+				 open=", ARRAY[" separator="," close="]" >
+				 #{item}
+			</foreach>
+		)
+	</insert>
+</mapper>
