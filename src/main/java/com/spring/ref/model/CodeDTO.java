@@ -1,15 +1,13 @@
 package com.spring.ref.model;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class CodeDTO {
-  private String id;
-  private String nm;
-  private String value;
-  private String parentId;
-  private String description;
+@Builder
+public class CodeDTO extends CodeVO{
+
   private List<String> whereUsed;
 }

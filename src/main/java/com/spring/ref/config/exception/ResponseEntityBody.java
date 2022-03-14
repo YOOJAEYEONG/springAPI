@@ -26,10 +26,9 @@ public class ResponseEntityBody {
     return builder()
       .uuid(requestBasicInfo.getUuid())
       .timestamp(requestBasicInfo.getTimestamp())
-
       .path(requestBasicInfo.getPath())
-      .error(re.getErrorCode())
-      .message(re.getErrorMessage())
+      .error(re.getCode())
+      .message(re.getMessage())
       .build();
   }
 

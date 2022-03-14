@@ -3,6 +3,27 @@ server:
   port: 8080
 
 logging:
+  config:
+    classpath: log4j2.yaml
   level:
     root: DEBUG
+
+spring:
+  h2:
+    console:
+      enabled: true
+      path: /h2
+      settings:
+        trace: true
+
+  datasource:
+    username: sac
+    password: 1234
+
+mybatis:
+  mapper-locations:
+    - mybatis/mapper/*.xml
+  type-aliases-package: com.spring.ref.model
+  configuration:
+    map-underscore-to-camel-case: true
 

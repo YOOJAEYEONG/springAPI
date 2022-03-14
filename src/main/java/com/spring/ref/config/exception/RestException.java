@@ -1,18 +1,15 @@
 package com.spring.ref.config.exception;
 
-import lombok.Builder;
-import lombok.Data;
 
-import static com.spring.ref.config.exception.ErrorConstant.ACCESS_DENIED;
-import static com.spring.ref.config.exception.ErrorConstant.AUTHENTICATION_REQUIRED;
-
-@Data
-@Builder
 public class RestException extends Exception{
 
+  private ErrorConstant error = null;
 
-  private String errorMessage;
-  private String errorCode;
+  public String getCode(){
+    return error.getCode();
+  }
 
-
+  public String getMessage(){
+    return error.getMessage();
+  }
 }
