@@ -18,6 +18,10 @@ public class BaseAspect {
   @Before("execution(* com.spring.ref.web..*(..))")
   public void before() {
     log.info("BaseAspect[before]");
+
+    log.debug("BaseAspect-debug");
+    log.info("BaseAspect-info");
+    log.trace("BaseAspect-trace");
   }
 
   @After("execution(* com.spring.ref.web..*(..))")

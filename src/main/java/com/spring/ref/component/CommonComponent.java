@@ -19,6 +19,10 @@ public class CommonComponent {
 
 
   public String createUUID(String uuidType) {
+
+    log.debug("CommonComponent-debug");
+    log.info("CommonComponent-info");
+    log.trace("CommonComponent-trace");
     UUID uuid = null;
     String strUUID = null;
 

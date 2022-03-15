@@ -7,13 +7,10 @@ Configutation:
   # 60 초마다 이 구성파일을 스캔하여 변경사항을 적용 (min:5)
   monitorInterval : 60
 
-
-
-
   Properties:
     Property:
       name: log-path
-      value: "logs"
+      value: "/logs"
 
   # 로그는 console 화면, logfile.log, rollingfile.log 3개로 출력
   Appenders:
@@ -30,7 +27,7 @@ Configutation:
     RollingFile:
       - name: RollingFile_Appender
         fileName: ${log-path}/rollingfile.log
-        filePattern: "logs/archive/rollingfile.log.%d{yyyy-MM-dd-hh-mm}.gz"
+        filePattern: "logs/archive/rollingfile_%d{yyyy-MM-dd-hh-mm}.log.gz"
         PatternLayout:
           pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"
         Policies:
@@ -38,6 +35,8 @@ Configutation:
             size: 1 KB
         DefaultRollOverStrategy:
           max: 30
+
+  # 패키지별로 로거 실행 계획을 다르게 설정 할 수 있다.
   Loggers:
     Root:
       level: info
@@ -46,7 +45,14 @@ Configutation:
         - ref: File_Appender
         - ref: RollingFile_Appender
     Logger:
-      - name: edu.project
+      - name: com.spring.ref.component
+        additivity: false
+        level: info
+        AppenderRef:
+          - ref: Console_Appender
+          - ref: File_Appender
+          - ref: RollingFile_Appender
+      - name: com.spring.ref
         additivity: false
         level: debug
         AppenderRef:
