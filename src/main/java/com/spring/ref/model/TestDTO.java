@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 @Builder
-public class CodeDTO extends CodeVO{
+public class TestDTO extends TestVO{
 
   private List<String> whereUsed;
 }

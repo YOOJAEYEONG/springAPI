@@ -1,8 +1,12 @@
 # jackson-dataformat-yaml 의존성 추가 되어 있어야함
+# log4j2 Doc : https://logging.apache.org/log4j/2.x/manual/configuration.html
 
+# %c{1}   : org.apache.commons.Foo => Foo
+# %c{10}  : org.apache.commons.Foo => org.apache.commons.Foo
+# %t = %thread
 Configutation:
   name: Default
-  # 로그 레벨은 TRACE > DEBUG > INFO > WARN > ERROR > FATAL 순이다.
+  # 로그 레벨: TRACE > DEBUG > INFO > WARN > ERROR > FATAL
   status: DEBUG
   # 60 초마다 이 구성파일을 스캔하여 변경사항을 적용 (min:5)
   monitorInterval : 60
@@ -18,23 +22,47 @@ Configutation:
       name: Console_Appender
       target: SYSTEM_OUT
       PatternLayout:
-        pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"
+        charset: UTF-8
+        pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} %c{10}:%line [%t]- %msg%n"
+      # error 일 경우에 만 파일에 로그를 남기도록 설정
+      Filters:
+        LevelFilter:
+          level: error
+          onMatch: ACCEPT
+          onMismatch: DENY
     File:
       name: File_Appender
       fileName: ${log-path}/logfile.log
       PatternLayout:
-        pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"
+        charset: UTF-8
+        pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} %c{10}:%line [%t]- %msg%n"
+      Filters:
+        ThresholdFilter:
+          level: error 
+
     RollingFile:
       - name: RollingFile_Appender
         fileName: ${log-path}/rollingfile.log
+
         filePattern: "logs/archive/rollingfile_%d{yyyy-MM-dd-hh-mm}.log.gz"
         PatternLayout:
-          pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"
+          charset: UTF-8
+          pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} %c{10}:%line [%t]- %msg%n"
+
+        # error 일 경우에 만 파일에 로그를 남기도록 설정
+        Filters:
+          LevelFilter:
+            level: error
+            onMatch: ACCEPT
+            onMismatch: DENY
         Policies:
+          #로그 파일이 용량에 도달할 때마다 롤이 발생
           SizeBasedTriggeringPolicy:
-            size: 1 KB
+            size: 500 MB
+          TimeBasedTriggeringPolicy:
+
         DefaultRollOverStrategy:
-          max: 30
+          max: 30 #
 
   # 패키지별로 로거 실행 계획을 다르게 설정 할 수 있다.
   Loggers:
