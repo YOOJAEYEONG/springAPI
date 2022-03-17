@@ -9,5 +9,5 @@ import java.util.List;
 @Mapper
 public interface TestMapper {
 
-  public List<TestVO> selectTest();
+  List<TestVO> selectTest();
 }
