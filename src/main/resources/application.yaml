@@ -1,19 +1,10 @@
-#local 환경
-#운영서버에 올리기전 테스트 환경
-#적용방법 : VM 옵션 값에 추가 "-Dspring.profiles.active=dev"
-
+# dev, prod 환경에서 사용하는 공통 설정을 여기에 입력하고 설정 분기 처리는 import
 
 spring:
   config:
     import:
-      classpath: application-dev.yaml, #classpath: application-dev2.yaml
-  datasource:
-    #url: jdbc:log4jdbc:postgresql://localhost:5432/postgres
-    url: jdbc:postgresql://localhost:5432/postgres
-    #driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-    driver-class-name: org.postgresql.Driver
-    username: postgres
-    password: 1234
+      - application-dev.yaml
+
 
 log4jdbc:
   drivers: net.sf.log4jdbc.sql.jdbcapi.DriverSpy

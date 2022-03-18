@@ -18,7 +18,7 @@ public class TestServiceImpl implements TestService {
 
   @Override
   public List<TestVO> selectTestList() {
-    log.trace(">>>>>>>{}",testMapper.selectTest());
+    log.info(">>>>>>>{}",testMapper.selectTest());
     return testMapper.selectTest();
   }
 }
