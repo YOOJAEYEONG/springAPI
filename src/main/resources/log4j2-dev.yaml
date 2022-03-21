@@ -10,6 +10,7 @@
 
 
 Configutation:
+
   name: Default
   # 로그 레벨: TRACE > DEBUG > INFO > WARN > ERROR > FATAL
   status: DEBUG
@@ -20,7 +21,8 @@ Configutation:
   Properties:
     Property:
       name: log-path
-      value: "/logs"
+      value: C:/logs/dev
+  #      value: "/logs"
 
   # 로그는 console 화면, logfile.log, rollingfile.log 3개로 출력
   Appenders:
@@ -30,7 +32,6 @@ Configutation:
       PatternLayout:
         charset: UTF-8
         pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} %c{10}:%line [%t]- %msg%n"
-
     File:
       name: File_Appender
       fileName: ${log-path}/logfile.log
@@ -46,12 +47,10 @@ Configutation:
     RollingFile:
       - name: RollingFile_Appender
         fileName: ${log-path}/rollingfile.log
-
         filePattern: "logs/archive/rollingfile_%d{yyyy-MM-dd-hh-mm}.log.gz"
         PatternLayout:
           charset: UTF-8
           pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} %c{10}:%line [%t]- %msg%n"
-
         Policies:
           #로그 파일이 용량에 도달할 때마다 롤이 발생
           SizeBasedTriggeringPolicy:
@@ -63,23 +62,57 @@ Configutation:
   # 패키지별로 로거 실행 계획을 다르게 설정 할 수 있다.
   Loggers:
     Root:
-      level: info
+      level: debug
+      additivity: false
       AppenderRef:
         - ref: Console_Appender
         - ref: File_Appender
         - ref: RollingFile_Appender
     Logger:
-      - name: com.spring.ref.component
-        additivity: false
-        level: info
-        AppenderRef:
-          - ref: Console_Appender
-          - ref: File_Appender
-          - ref: RollingFile_Appender
+#      - name: com.spring.ref.component
+#        additivity: false
+#        level: trace
+#        AppenderRef:
+#          - ref: Console_Appender
+#          - ref: File_Appender
+#          - ref: RollingFile_Appender
       - name: com.spring.ref
         additivity: false
-        level: INFO
+        level: debug
         AppenderRef:
           - ref: Console_Appender
           - ref: File_Appender
           - ref: RollingFile_Appender
+
+#      - name: com.zaxxer.hikari.pool
+#        additivity: false
+#        level: OFF
+#      - name: jdbc
+#        additivity: false
+#        level: OFF
+#      - name: jdbc.sqlonly
+#        additivity: false
+#        level: OFF
+      - name: jdbc.sqltiming
+        AppenderRef:
+          - ref: Console_Appender
+        #level: OFF
+#      - name: jdbc.audit
+#        additivity: false
+#        level: OFF
+#      - name: jdbc.resultset
+#        additivity: false
+#        level: OFF
+#      - name: jdbc.resultsettable
+#        level: OFF
+#      - name: jdbc.connection
+#        additivity: false
+#        level: OFF
+
+      #<logger name="jdbc" level="OFF"/>
+      #<logger name="jdbc.sqlonly" level="OFF"/>
+      #<logger name="jdbc.sqltiming" level="DEBUG"/>
+      #<logger name="jdbc.audit" level="OFF"/>
+      #<logger name="jdbc.resultset" level="OFF"/>
+      #<logger name="jdbc.resultsettable" level="DEBUG"/>
+      #<logger name="jdbc.connection" level="OFF"/>

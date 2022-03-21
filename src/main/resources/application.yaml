@@ -1,15 +1,28 @@
 # dev, prod 환경에서 사용하는 공통 설정을 여기에 입력하고 설정 분기 처리는 import
+#
+#spring:
+#  config:
+#    activate:
+#      on-profile:
+#        - "dev"
+#    import:
+#      - application-dev.yaml
+#
+#---
+#spring:
+#  config:
+#    activate:
+#      on-profile:
+#        - "prod"
+#    import:
+#      - application-prod.yaml
+#---
 
-spring:
-  config:
-    import:
-      - application-dev.yaml
+#log4jdbc:
+#  drivers: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+#  spylogdelegator:
+#    name: net.sf.log4jdbc.log.slf4j.Slf4jSpyLogDelegator
 
-
-log4jdbc:
-  drivers: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-  spylogdelegator:
-    name: net.sf.log4jdbc.log.slf4j.Slf4jSpyLogDelegator
 #  dump:
 #    sql:
 #      maxlinelength: 0
@@ -23,12 +36,7 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
 
-logging:
-  config:
-    classpath: log4j2.yaml
-  level:
-    web: DEBUG
-    root: INFO
+
 
 
 
