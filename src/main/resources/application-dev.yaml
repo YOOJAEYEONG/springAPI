@@ -21,30 +21,12 @@ spring:
     dbcp2:
       default-schema: api
 
-  config:
-    import: log4j2-dev.yaml
-
-log4jdbc:
-  drivers: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-  spylogdelegator:
-    name: net.sf.log4jdbc.log.slf4j.Slf4jSpyLogDelegator
-#  config: log4j2-dev.yaml
-
-# log4j 구성을 적용할 파일을 설정
-#logging:
-#  config:
-#    classpath: log4j2-dev.yaml
-#  level:
-#    web: debug
-#    root: DEBUG
-
-
-
-
-#  dump:
-#    sql:
-#      maxlinelength: 0
-#log4jdbc.dump.sql.maxlinelength=0
+# 이걸 안해주니
+logging:
+  log4j2:
+    config:
+      override:
+        - src/main/resources/log4j2-dev.yaml
 
 
 mybatis:

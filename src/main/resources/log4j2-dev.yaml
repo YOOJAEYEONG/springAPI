@@ -1,6 +1,6 @@
 # jackson-dataformat-yaml 의존성 추가 되어 있어야함
 # log4j2 Doc : https://logging.apache.org/log4j/2.x/manual/configuration.html
-
+# 현재 버전에 level: off 값에 대한 exception 이슈가 있어서 fatal 로 설정함.
 # %c{1}   : org.apache.commons.Foo => Foo
 # %c{10}  : org.apache.commons.Foo => org.apache.commons.Foo
 # %t = %thread
@@ -15,7 +15,7 @@ Configutation:
   # 로그 레벨: TRACE > DEBUG > INFO > WARN > ERROR > FATAL
   status: DEBUG
   # 60 초마다 이 구성파일을 스캔하여 변경사항을 적용 (min:5)
-  monitorInterval : 60
+  monitorInterval : 10
 
 
   Properties:
@@ -40,7 +40,7 @@ Configutation:
         pattern: "%highlight{[%-5level]} %d{yyyy-MM-dd HH:mm:ss.SSS} %c{10}:%line [%t]- %msg%n"
       Filters:
         ThresholdFilter:
-          level: error
+          level: ERROR
           onMatch: ACCEPT
           onMismatch: DENY
 
@@ -62,23 +62,23 @@ Configutation:
   # 패키지별로 로거 실행 계획을 다르게 설정 할 수 있다.
   Loggers:
     Root:
-      level: debug
-      additivity: false
+      level: DEBUG
+      additivity: FALSE
       AppenderRef:
         - ref: Console_Appender
         - ref: File_Appender
         - ref: RollingFile_Appender
     Logger:
-#      - name: com.spring.ref.component
-#        additivity: false
-#        level: trace
-#        AppenderRef:
-#          - ref: Console_Appender
-#          - ref: File_Appender
-#          - ref: RollingFile_Appender
+      - name: com.spring.ref.component
+        additivity: FALSE
+        level: DEBUG
+        AppenderRef:
+          - ref: Console_Appender
+          - ref: File_Appender
+          - ref: RollingFile_Appender
       - name: com.spring.ref
-        additivity: false
-        level: debug
+        additivity: FALSE
+        level: DEBUG
         AppenderRef:
           - ref: Console_Appender
           - ref: File_Appender
@@ -87,27 +87,33 @@ Configutation:
 #      - name: com.zaxxer.hikari.pool
 #        additivity: false
 #        level: OFF
-#      - name: jdbc
-#        additivity: false
-#        level: OFF
-#      - name: jdbc.sqlonly
-#        additivity: false
-#        level: OFF
+      - name: jdbc
+        additivity: FALSE
+        level: FATAL
+        # 실행한 쿼리(변수값 포함) 출력
+      - name: jdbc.sqlonly
+        level: fatal
+        # 실행한 쿼리(변수값 포함), 수행시간 출력
       - name: jdbc.sqltiming
+        level: info
         AppenderRef:
           - ref: Console_Appender
-        #level: OFF
-#      - name: jdbc.audit
-#        additivity: false
-#        level: OFF
-#      - name: jdbc.resultset
-#        additivity: false
-#        level: OFF
-#      - name: jdbc.resultsettable
-#        level: OFF
-#      - name: jdbc.connection
-#        additivity: false
-#        level: OFF
+      - name: jdbc.audit
+        level: FATAL
+        # 쿼리 실행 결과 row 값이 각각 모두 출력됨
+      - name: jdbc.resultset
+        additivity: FALSE
+        level: error
+        # 결과 테이블이 콘솔에 출력..
+        #몇건 조회일경우 유용하고 결과값이 너무 많으면 로그가 너무 많이 차지 할듯
+      - name: jdbc.resultsettable
+        additivity: false
+        level: info
+        AppenderRef:
+          - ref: Console_Appender
+      - name: jdbc.connection
+        additivity: FALSE
+        level: FATAL
 
       #<logger name="jdbc" level="OFF"/>
       #<logger name="jdbc.sqlonly" level="OFF"/>

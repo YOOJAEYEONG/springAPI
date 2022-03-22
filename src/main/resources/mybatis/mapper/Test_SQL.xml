@@ -5,7 +5,12 @@
 <mapper namespace="com.spring.ref.mapper.TestMapper">
 
 
-    <select id="selectTest" resultType="TestVO">
+    <select id="selectTest" resultType="TestVO" parameterType="java.util.Map">
         select * from TEST
+        <where>
+            <if test="name1 != null">
+                name1 like '%'|| #{name1} || '%'
+            </if>
+        </where>
     </select>
 </mapper>

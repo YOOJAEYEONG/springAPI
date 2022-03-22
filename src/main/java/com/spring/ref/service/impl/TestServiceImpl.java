@@ -7,7 +7,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Service
@@ -18,7 +20,10 @@ public class TestServiceImpl implements TestService {
 
   @Override
   public List<TestVO> selectTestList() {
-    log.info(">>>>>>>{}",testMapper.selectTest());
-    return testMapper.selectTest();
+    Map<String,String> param = new HashMap<>();
+    param.put("name1","48");
+    List<TestVO> list = testMapper.selectTest(param);
+    log.info(">>>>>>>{}",list);
+    return list;
   }
 }
