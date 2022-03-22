@@ -21,7 +21,7 @@ spring:
     dbcp2:
       default-schema: api
 
-# 이걸 안해주니
+# 이걸 안해주니 로그가 두번찍힘.
 logging:
   log4j2:
     config:
