@@ -1,6 +1,5 @@
 package com.spring.ref.config.swagger;
 
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -12,30 +11,47 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
- * swagger ui
- * http://localhost/context-path/swagger-ui/
- *
+ * swagger 구성 설정
+ * http://localhost:[port]/[context-path]/swagger-ui/index.html
  */
 @Configuration
 @EnableSwagger2
-@EnableAutoConfiguration
 public class SwaggerConfig {
+
 
   private ApiInfo apiInfo() {
     return new ApiInfoBuilder()
-      .title("Example API")
-      .description("Swagger 소개를 위한 example")
+      .version("version - 1.0")
+      .title("API - Title")
+      .description("Swagger Api - description")
       .build();
   }
 
   @Bean
-  public Docket apiV1(){
+  public Docket api1(){
     return new Docket(DocumentationType.SWAGGER_2)
-      .groupName("groupName1")
+      // Swagger 에서 제공해주는 기본 응답 코드 (200, 401, 403, 404). false 로 설정하면 기본 응답 코드를 노출하지 않음
+      .useDefaultResponseMessages(false)
+      .apiInfo(apiInfo())
+      .groupName("Docket - groupName1")
       .select()
-      //.apis(RequestHandlerSelectors.basePackage("com.spring.ref"))
-      .apis(RequestHandlerSelectors.any())
-      .paths(PathSelectors.ant("/**"))
+      .apis(RequestHandlerSelectors.basePackage("com.spring.ref"))// api 스펙이 작성되어 있는 패키지 (Controller) 를 지정
+      //.apis(RequestHandlerSelectors.any())
+      .paths(PathSelectors.any()) //apis 에 있는 API 중 특정 path 를 선택
       .build();
   }
+
+  @Bean
+  public Docket api2(){
+    return new Docket(DocumentationType.SWAGGER_2)
+      .apiInfo(apiInfo())
+      .groupName("Docket - groupName2")
+      .select()
+      .apis(RequestHandlerSelectors.any())
+      .paths(PathSelectors.any()) //apis 에 있는 API 중 특정 path 를 선택
+      .build();
+  }
+
+
+
 }

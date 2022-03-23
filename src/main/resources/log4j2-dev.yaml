@@ -13,7 +13,7 @@ Configutation:
 
   name: Default
   # 로그 레벨: TRACE > DEBUG > INFO > WARN > ERROR > FATAL
-  status: DEBUG
+  status: info
   # 60 초마다 이 구성파일을 스캔하여 변경사항을 적용 (min:5)
   monitorInterval : 10
 

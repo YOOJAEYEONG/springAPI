@@ -1,13 +1,18 @@
 package com.spring.ref.model;
 
-import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.SuperBuilder;
+import org.apache.ibatis.type.Alias;
 
-import java.util.List;
+import java.util.Map;
 
+@Alias("TestDTO")
 @Data
-@Builder
+//상속받은 클래스 생성시 부모 인자를 셋팅할수 있도록 해줌
+@SuperBuilder
 public class TestDTO extends TestVO{
 
-  private List<String> whereUsed;
+  public Map<String,String> params;
+
+
 }

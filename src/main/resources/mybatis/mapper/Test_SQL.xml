@@ -5,7 +5,7 @@
 <mapper namespace="com.spring.ref.mapper.TestMapper">
 
 
-    <select id="selectTest" resultType="TestVO" parameterType="java.util.Map">
+    <select id="selectTest" resultType="TestVO" parameterType="TestDTO">
         select * from TEST
         <where>
             <if test="name1 != null">

@@ -1,12 +1,8 @@
 package com.spring.ref.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
-import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 /**
  * WebMvcConfigurer 를 사용하면 @EnableWebMvc 가
@@ -16,6 +12,19 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @Configuration
 public class MvcConfiguration implements WebMvcConfigurer {
 
+  //addResourceHandlers
+
+  @Override
+  public void addResourceHandlers(ResourceHandlerRegistry registry) {
+      registry
+        .addResourceHandler("/swagger-ui.html")
+        .addResourceLocations("classpath:/META-INF/resources/");
+      registry
+        .addResourceHandler("/webjars/**")
+        .addResourceLocations("classpath:/META-INF/resources/webjars/");
+
+    WebMvcConfigurer.super.addResourceHandlers(registry);
+  }
 
 //  @Override
 //  public void addInterceptors(InterceptorRegistry registry) {
