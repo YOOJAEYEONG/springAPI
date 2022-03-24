@@ -13,4 +13,8 @@
             </if>
         </where>
     </select>
+
+    <select id="selectAll" resultType="Integer">
+        select * from test
+    </select>
 </mapper>

@@ -10,7 +10,6 @@ import java.util.List;
 @Builder
 public class ResponseEntityBody {
 
-
   private String uuid;
   private String timestamp;   // 요청 시각
   private String error;

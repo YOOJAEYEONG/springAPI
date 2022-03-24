@@ -4,6 +4,7 @@ package com.spring.ref.config.exception.handler;
 import com.spring.ref.config.exception.ResponseEntityBody;
 import com.spring.ref.config.exception.RequestBasicInfo;
 import com.spring.ref.config.exception.RestException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,17 +17,17 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@RequiredArgsConstructor
 @RestControllerAdvice(annotations = RestController.class)
 public class RestDefaultExceptionHandler {
 
-  @Autowired
   private RequestBasicInfo requestBasicInfo;
 
   @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
   protected ResponseEntity<ResponseEntityBody> handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
     ResponseEntityBody entity = ResponseEntityBody.builder()
-      .path(requestBasicInfo.getPath())					// 값이 없어 ..
-      .uuid(requestBasicInfo.getUuid())					// 값이 없어 ..
+      .path(requestBasicInfo.getPath())
+      .uuid(requestBasicInfo.getUuid())
       .timestamp(requestBasicInfo.getTimestamp())
       .message(e.getMessage())
       .build();
@@ -101,6 +102,13 @@ public class RestDefaultExceptionHandler {
   protected ResponseEntity<ResponseEntityBody> exception(Exception e) {
 
     log.error("ControllerExceptionHandler[exception]" , e);
+
+    ResponseEntityBody entity = ResponseEntityBody.builder()
+      .path(requestBasicInfo.getPath())					// 값이 없어 ..
+      .uuid(requestBasicInfo.getUuid())					// 값이 없어 ..
+      .timestamp(requestBasicInfo.getTimestamp())
+      .message(e.getMessage())
+      .build();
 
     return new ResponseEntity<>(ResponseEntityBody.error(requestBasicInfo , e), HttpStatus.INTERNAL_SERVER_ERROR);
   }

@@ -23,4 +23,9 @@ public class TestServiceImpl implements TestService {
     log.info(">>>>>>>{}",list);
     return list;
   }
+
+  @Override
+  public Integer selectAll() {
+    return testMapper.selectAll();
+  }
 }

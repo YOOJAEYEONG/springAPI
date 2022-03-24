@@ -1,5 +1,6 @@
 package com.spring.ref.web;
 
+import com.spring.ref.config.exception.RestException;
 import com.spring.ref.model.TestDTO;
 import com.spring.ref.model.TestVO;
 import com.spring.ref.service.TestService;
@@ -9,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.weaver.ast.Test;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +29,7 @@ public class TestRestController {
 
   @Operation(summary = "@Operation:summary", description = "@Operation:description",method = "@Operation:method")
   @GetMapping("/selectTestList")
-  List<TestVO> selectTestList() throws Exception{
+  List<TestVO> selectTestList() throws RestException{
     return testService.selectTestList(TestDTO.builder().name1("48").build());
   }
 
@@ -35,7 +37,9 @@ public class TestRestController {
   @ApiResponse(ref = "@ApiResponse:ref",description = "@ApiResponse:description")//Swagger 확인을 위해 추가함
   @Operation(summary = "@Operation:summary", description = "@Operation:description",method = "@Operation:method")//Swagger 확인을 위해 추가함
   @PostMapping("/selectAll")
-  public ResponseEntity selectAll(TestDTO testDTO){
-    return ResponseEntity.ok(TestVO.builder().name1("sample1").name2("sample2").build());
+  public ResponseEntity selectAll(TestDTO testDTO) throws RestException{
+    log.info("testDTO= {}",testDTO);
+    //return ResponseEntity.ok(TestVO.builder().name1("sample1").name2("sample2").build());
+    return ResponseEntity.ok(testService.selectAll());
   }
 }

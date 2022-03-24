@@ -8,4 +8,6 @@ import java.util.List;
 public interface TestService {
 
   List<TestVO> selectTestList(TestDTO testDTO);
+
+  Integer selectAll();
 }
