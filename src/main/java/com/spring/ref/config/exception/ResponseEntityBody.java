@@ -22,6 +22,7 @@ public class ResponseEntityBody {
 
   public static ResponseEntityBody error(RequestBasicInfo requestBasicInfo , RestException re) {
 
+
     return builder()
       .uuid(requestBasicInfo.getUuid())
       .timestamp(requestBasicInfo.getTimestamp())

@@ -103,13 +103,6 @@ public class RestDefaultExceptionHandler {
 
     log.error("ControllerExceptionHandler[exception]" , e);
 
-    ResponseEntityBody entity = ResponseEntityBody.builder()
-      .path(requestBasicInfo.getPath())					// 값이 없어 ..
-      .uuid(requestBasicInfo.getUuid())					// 값이 없어 ..
-      .timestamp(requestBasicInfo.getTimestamp())
-      .message(e.getMessage())
-      .build();
-
     return new ResponseEntity<>(ResponseEntityBody.error(requestBasicInfo , e), HttpStatus.INTERNAL_SERVER_ERROR);
   }
 
