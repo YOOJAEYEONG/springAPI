@@ -18,10 +18,6 @@ public class BaseAspect {
   @Before("execution(* com.spring.ref.web..*(..))")
   public void before() {
     log.info("BaseAspect[before]");
-
-    log.debug("BaseAspect-debug");
-    log.info("BaseAspect-info");
-    log.trace("BaseAspect-trace");
   }
 
   @After("execution(* com.spring.ref.web..*(..))")
@@ -31,7 +27,7 @@ public class BaseAspect {
 
   @Around("execution(* com.spring.ref.web..*(..))")
   public Object requestResponseHandle(ProceedingJoinPoint joinPoint) throws Throwable {
-    log.info("BaseAspect[requestResponseHandle]");
+    log.info("BaseAspect[Around]");
 
     log.info("start - " + joinPoint.getSignature().getDeclaringTypeName() + " / " + joinPoint.getSignature().getName());
 

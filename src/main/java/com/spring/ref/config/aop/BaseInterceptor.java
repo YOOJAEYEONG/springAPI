@@ -27,11 +27,11 @@ public class BaseInterceptor implements	HandlerInterceptor {
    */
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler ) throws Exception {
-    log.debug("BaseInterCeptor[preHandle] URI " + request.getRequestURI() + " - Call start ======================================");
+    log.info("BaseInterCeptor[preHandle] URI " + request.getRequestURI() + " - Call start ======================================");
 
     initBasicEntity(request);
 
-    log.debug("requestBasicInfo : {}" , requestBasicInfo.toString());
+    log.info("requestBasicInfo : {}" , requestBasicInfo.toString());
 
     return true;
   }
@@ -41,13 +41,13 @@ public class BaseInterceptor implements	HandlerInterceptor {
    */
   @Override
   public void postHandle( HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView ) throws Exception {
-    log.debug("BaseInterceptor[preHandle] URI " + request.getRequestURI() + " Call end ======================================");
+    log.info("BaseInterceptor[preHandle] URI " + request.getRequestURI() + " Call end ======================================");
   }
 
   @Override
   public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler,
                               Exception ex) throws Exception {
-    log.debug("BaseInterceptor[afterCompletion]");
+    log.info("BaseInterceptor[afterCompletion]");
   }
 
   /**

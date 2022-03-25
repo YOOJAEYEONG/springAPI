@@ -2,11 +2,12 @@ package com.spring.ref.config.exception;
 
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.http.HttpStatus;
+import lombok.extern.slf4j.Slf4j;
 
-import java.util.List;
+import java.util.Map;
 
 @Data
+@Slf4j
 @Builder
 public class ResponseEntityBody {
 
@@ -16,9 +17,8 @@ public class ResponseEntityBody {
   private String trace;
   private String message;
   private String path;
-  private Object data;
   private int totalCount;
-  private List<Object> datas;
+  private Map<String,Object> data;
 
   public static ResponseEntityBody error(RequestBasicInfo requestBasicInfo , RestException re) {
 
