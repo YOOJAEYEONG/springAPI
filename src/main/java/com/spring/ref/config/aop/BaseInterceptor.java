@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * 호출시점 : DispatcherServlet > Interceptor
+ */
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -20,7 +23,7 @@ public class BaseInterceptor implements	HandlerInterceptor {
 
   private final HttpSession httpSession;					// @Autowired(required = true)
   private final CommonComponent commonComponent;		// @Resource(name="CommonComponent")
-  private final RequestBasicInfo requestBasicInfo;
+  private RequestBasicInfo requestBasicInfo;
 
   /**
    * HTTP 요청 처리 전 수행할 로직 작성
@@ -40,12 +43,17 @@ public class BaseInterceptor implements	HandlerInterceptor {
    * HTTP 요청 처리 후 수행할 로직 작성
    */
   @Override
-  public void postHandle( HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView ) throws Exception {
+  public void postHandle( HttpServletRequest request,
+                          HttpServletResponse response,
+                          Object handler,
+                          ModelAndView modelAndView ) throws Exception {
     log.info("BaseInterceptor[preHandle] URI " + request.getRequestURI() + " Call end ======================================");
   }
 
   @Override
-  public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler,
+  public void afterCompletion(HttpServletRequest request,
+                              HttpServletResponse response,
+                              Object handler,
                               Exception ex) throws Exception {
     log.info("BaseInterceptor[afterCompletion]");
   }

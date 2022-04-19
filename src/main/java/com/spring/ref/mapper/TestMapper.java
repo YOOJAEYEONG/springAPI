@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface TestMapper {
 
-  List<TestVO> selectTest(TestDTO testDTO);
+  List<TestVO> selectTestList(TestDTO testDTO);
 
   Integer selectAll();
 }

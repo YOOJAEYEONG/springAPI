@@ -19,7 +19,7 @@ public class TestServiceImpl implements TestService {
 
   @Override
   public List<TestVO> selectTestList(TestDTO testDTO) {
-    List<TestVO> list = testMapper.selectTest(testDTO);
+    List<TestVO> list = testMapper.selectTestList(testDTO);
     log.info(">>>>>>>{}",list);
     return list;
   }

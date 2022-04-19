@@ -26,11 +26,11 @@ public class TestRestController {
 
   final TestService testService;
 
-
+  //Swagger 확인을 위해 추가함
   @Operation(summary = "@Operation:summary", description = "@Operation:description",method = "@Operation:method")
   @GetMapping("/selectTestList")
-  List<TestVO> selectTestList() throws RestException{
-    return testService.selectTestList(TestDTO.builder().name1("48").build());
+  ResponseEntity selectTestList() throws RestException{
+    return ResponseEntity.ok(testService.selectTestList(TestDTO.builder().build()));
   }
 
 
@@ -39,7 +39,6 @@ public class TestRestController {
   @PostMapping("/selectAll")
   public ResponseEntity selectAll(TestDTO testDTO) throws RestException{
     log.info("testDTO= {}",testDTO);
-    //return ResponseEntity.ok(TestVO.builder().name1("sample1").name2("sample2").build());
     return ResponseEntity.ok(testService.selectAll());
   }
 }

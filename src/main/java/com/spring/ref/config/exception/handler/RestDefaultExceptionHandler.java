@@ -4,7 +4,6 @@ package com.spring.ref.config.exception.handler;
 import com.spring.ref.config.exception.RequestBasicInfo;
 import com.spring.ref.config.exception.ResponseEntityBody;
 import com.spring.ref.config.exception.RestException;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -19,8 +18,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice(annotations = RestController.class)
 public class RestDefaultExceptionHandler {
 
-  @NonNull
-  private RequestBasicInfo requestBasicInfo;
+
+  private final RequestBasicInfo requestBasicInfo;
 
   @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
   protected ResponseEntity<ResponseEntityBody> handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
@@ -93,6 +92,8 @@ public class RestDefaultExceptionHandler {
   protected ResponseEntity<ResponseEntityBody> restException(RestException e) {
 
     log.error("ControllerExceptionHandler[restException]" , e);
+    log.info("ControllerExceptionHandler: requestBasicInfo:{}",requestBasicInfo);
+
 
     return new ResponseEntity<>(ResponseEntityBody.error(requestBasicInfo , e), HttpStatus.INTERNAL_SERVER_ERROR);
   }
@@ -101,7 +102,7 @@ public class RestDefaultExceptionHandler {
   protected ResponseEntity<ResponseEntityBody> exception(Exception e) {
 
     log.error("ControllerExceptionHandler[exception]" , e);
-    log.info("requestBasicInfo:{}",requestBasicInfo);
+    log.info("ControllerExceptionHandler: requestBasicInfo:{}",requestBasicInfo);
 
     return new ResponseEntity<>(ResponseEntityBody.error(requestBasicInfo , e), HttpStatus.INTERNAL_SERVER_ERROR);
   }

@@ -28,10 +28,3 @@ logging:
       override:
         - src/main/resources/log4j2-dev.yaml
 
-
-mybatis:
-  mapper-locations:
-    - mybatis/mapper/*.xml
-  type-aliases-package: com.spring.ref.model
-  configuration:
-    map-underscore-to-camel-case: true
