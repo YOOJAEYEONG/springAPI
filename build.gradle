@@ -25,7 +25,7 @@ repositories {
 }
 
 dependencies {
-  // A 2/3. 성능이 좋은 Log4j2 의존성 추가
+  // A 2/3. Log4j2 의존성 추가
   implementation 'org.springframework.boot:spring-boot-starter-log4j2'
   implementation 'org.springframework.boot:spring-boot-starter-validation'
   implementation 'org.springframework.boot:spring-boot-starter-web'

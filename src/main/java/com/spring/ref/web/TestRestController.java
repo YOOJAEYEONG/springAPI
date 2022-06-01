@@ -26,6 +26,8 @@ public class TestRestController {
 
   final TestService testService;
 
+
+
   //Swagger 확인을 위해 추가함
   @Operation(summary = "@Operation:summary", description = "@Operation:description",method = "@Operation:method")
   @GetMapping("/selectTestList")
@@ -36,7 +38,7 @@ public class TestRestController {
 
   @ApiResponse(ref = "@ApiResponse:ref",description = "@ApiResponse:description")//Swagger 확인을 위해 추가함
   @Operation(summary = "@Operation:summary", description = "@Operation:description",method = "@Operation:method")//Swagger 확인을 위해 추가함
-  @PostMapping("/selectAll")
+  @RequestMapping("/selectAll")
   public ResponseEntity selectAll(TestDTO testDTO) throws RestException{
     log.info("testDTO= {}",testDTO);
     return ResponseEntity.ok(testService.selectAll());

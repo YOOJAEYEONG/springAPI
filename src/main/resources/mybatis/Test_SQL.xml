@@ -4,7 +4,7 @@
 
 <mapper namespace="com.spring.ref.mapper.TestMapper">
     <select id="selectTestList" resultType="TestVO" parameterType="TestDTO">
-        select name1, name2, n from TEST
+        select * from TEST
         <where>
             <if test="name1 != null">
                 name1 like '%'|| #{name1} || '%'

@@ -1,5 +1,4 @@
-#운영서버에 올리기전 테스트 환경
-#적용방법 : VM 옵션 값에 추가 "-Dspring.profiles.active=dev"
+#운영서버에 올리기전 테스트 환경 적용방법 : VM 옵션 값에 추가 "-Dspring.profiles.active=dev"
 
 server:
   port: 8081

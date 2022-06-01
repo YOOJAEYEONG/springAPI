@@ -23,10 +23,10 @@ public class CommonComponent {
     log.debug("CommonComponent-debug");
     log.info("CommonComponent-info");
     log.trace("CommonComponent-trace");
-    UUID uuid = null;
+    UUID uuid;
     String strUUID = null;
 
-    ByteBuffer uuidBytes = null;
+    ByteBuffer uuidBytes;
 
     try {
 //			uuid = Generators.randomBasedGenerator().generate();
@@ -61,10 +61,7 @@ public class CommonComponent {
     }
   }
 
-  /**
-   *
-   * @return
-   */
+
   public String currentTime() {
     SimpleDateFormat simpleDateFormat;
 
